@@ -3,3 +3,23 @@ mysql> INSERT INTO postac VALUES(1, 'Bjorn','wiking','1999-03-03',25);
 mysql> INSERT INTO postac VALUES(2, 'Drozd','ptak','2019-03-03',2);
 mysql> INSERT INTO postac VALUES(3, 'Tesciowa','kobieta','1933-03-03',88)
 mysql> CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc VARCHAR(45), kolor ENUM('rozowy','czerwony','zolty'), id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
+CREATE TABLE izba(adres_budynku INT, nazwa_izby INT,PRIMARY KEY(adres_budynku,nazwa_izby), metraz INT UNSIGNED, wlasciciel INT NOT NULL, FOREIGN KEY(wlasciciel) REFERENCES postac(id_postaci));
+CREATE TABLE izba(adres_budynku INT, nazwa_izby INT ,PRIMARY KEY(adres_budynku,nazwa_izby), metraz INT UNSIGNED, wlasciciel INT NOT NULL, FOREIGN KEY(wlasciciel) REFERENCES postac(id_postaci));
+
+
+
+ALTER TABLE izba
+-> ADD kolor_izby VARCHAR(40)AFTER metraz;
+
+CREATE TABLE przetwory (id_przetworu INT NOT NULL PRIMARY KEY , rok_produkcji DATE DEFAULT '1900-01-01', id_wykonawcy INT, FOREIGN KEY(id_wykonawcy) REFERENCES postac(id_postaci), zawartosc VARCHAR(50), dodatek VARCHAR(50) DEFAULT
+'papryczka chilli',id_konsumenta INT NOT NULL, FOREIGN KEY(id_konsumenta) REFERENCES postac(id_postaci));
+
+INSERT INTO przetwory VALUES ('1','1900-01-01 ','1','bigos','papryczka chilli','1');
+
+
+
+INSERT INTO postac VALUES(4,'maciek','wiking','1900-01-01','30');
+INSERT INTO postac VALUES(5,'kuba','wiking','1900-01-01','30');
+INSERT INTO postac VALUES(6,'patryk','wiking','1900-01-01','30');
+INSERT INTO postac VALUES(7,'zbyszek','wiking','1900-01-01','30');
+INSERT INTO postac VALUES(8,'agnieszka','wiking','1900-01-01','30');
