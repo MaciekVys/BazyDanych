@@ -1,25 +1,33 @@
-mysql> CREATE TABLE postac(id_postaci INT PRIMARY KEY AUTO_INCREMENT, nazwa VARCHAR(40),rodzaj ENUM('wiking','ptak','kobieta'),dara_urodzenia DATE, wiek INT);
-mysql> INSERT INTO postac VALUES(1, 'Bjorn','wiking','1999-03-03',25);
-mysql> INSERT INTO postac VALUES(2, 'Drozd','ptak','2019-03-03',2);
-mysql> INSERT INTO postac VALUES(3, 'Tesciowa','kobieta','1933-03-03',88)
-mysql> CREATE TABLE walizka(id_walizki INT PRIMARY KEY AUTO_INCREMENT, pojemnosc VARCHAR(45), kolor ENUM('rozowy','czerwony','zolty'), id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) REFERENCES postac(id_postaci));
-CREATE TABLE izba(adres_budynku INT, nazwa_izby INT,PRIMARY KEY(adres_budynku,nazwa_izby), metraz INT UNSIGNED, wlasciciel INT NOT NULL, FOREIGN KEY(wlasciciel) REFERENCES postac(id_postaci));
-CREATE TABLE izba(adres_budynku INT, nazwa_izby INT ,PRIMARY KEY(adres_budynku,nazwa_izby), metraz INT UNSIGNED, wlasciciel INT NOT NULL, FOREIGN KEY(wlasciciel) REFERENCES postac(id_postaci));
+CREATE TABLE statek (nazwa_statku INT PRIMARY KEY, rodzaj_statku ENUM('maly','duzy'), data_wodowania DATE, max_ladownosc INT UNSIGNED);
+
+INSERT INTO statek VALUES (1,'duzy','1800-02-06',100000);
+INSERT INTO statek VALUES (2,'maly','1800-05-10',1000);
+
+ALTER TABLE postac
+-> ADD funkcja VARCHAR(50);
+
+UPDATE postac SET funkcja='kapitan' WHERE id_postaci ='1';
+
+ALTER TABLE postac ADD FOREIGN KEY(id_postaci) REFERENCES statek(nazwa_statku);
+DELETE FROM postac WHERE rodzaj="wiking" AND wiek="92";
+DELETE FROM postac WHERE rodzaj="wiking" AND wiek="62";
+
+ ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_1;
+ ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_2;
+ ALTER TABLE izba DROP FOREIGN KEY izba_ibfk_1;
+ ALTER TABLE postac MODIFY id_postaci INT;
+ ALTER TABLE postac DROP PRIMARY KEY;
+ 
+
+ 
+
+  ALTER TABLE postac ADD pesel VARCHAR(11);
+  ALTER TABLE postac ADD PRIMARY KEY(pesel);
 
 
 
-ALTER TABLE izba
--> ADD kolor_izby VARCHAR(40)AFTER metraz;
-
-CREATE TABLE przetwory (id_przetworu INT NOT NULL PRIMARY KEY , rok_produkcji DATE DEFAULT '1900-01-01', id_wykonawcy INT, FOREIGN KEY(id_wykonawcy) REFERENCES postac(id_postaci), zawartosc VARCHAR(50), dodatek VARCHAR(50) DEFAULT
-'papryczka chilli',id_konsumenta INT NOT NULL, FOREIGN KEY(id_konsumenta) REFERENCES postac(id_postaci));
-
-INSERT INTO przetwory VALUES ('1','1900-01-01 ','1','bigos','papryczka chilli','1');
 
 
 
-INSERT INTO postac VALUES(4,'maciek','wiking','1900-01-01','30');
-INSERT INTO postac VALUES(5,'kuba','wiking','1900-01-01','30');
-INSERT INTO postac VALUES(6,'patryk','wiking','1900-01-01','30');
-INSERT INTO postac VALUES(7,'zbyszek','wiking','1900-01-01','30');
-INSERT INTO postac VALUES(8,'agnieszka','wiking','1900-01-01','30');
+
