@@ -1,0 +1,8 @@
+SELECT waga*0.7 FROM zasob WHERE rodzaj='jedzenie';
+SELECT waga*0.3 FROM zasob WHERE rodzaj='jedzenie';
+SELECT* FROM zasob WHERE rodzaj IS NULL;
+SELECT DISTINCT rodzaj,nazwa FROM zasob WHERE nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY nazwa ASC;
+SELECT AVG(waga) FROM kreatura WHERE rodzaj='wiking';
+SELECT COUNT(waga) ,AVG(waga) FROM kreatura GROUP BY rodzaj;
+
+SELECT SUM(waga) FROM zasob GROUP BY rodzaj;
