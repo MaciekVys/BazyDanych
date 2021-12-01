@@ -1,0 +1,3 @@
+SELECT AVG(waga), SUM(waga),nazwa FROM zasob WHERE ilosc>=4 GROUP BY nazwa HAVING SUM(waga)>10;
+SELECT rodzaj, COUNT(DISTINCT nazwa) FROM zasob WHERE ilosc>1 GROUP BY rodzaj;
+SELECT k1.nazwa,z1.nazwa FROM kreatura AS k1 JOIN ekwipunek e1 ON k1.idKreatury=e1.idKreatury JOIN zasob AS z1 ON z1.idZasobu=e1.idZasobu;
