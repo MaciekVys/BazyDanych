@@ -1,0 +1,17 @@
+SELECT DISTINCT k.nazwa, z.nazwa FROM kreatura as k INNER JOIN ekwipunek as e ON k.idKreatury INNER JOIN zasob as z ON e.idZasobu=z.idZasobu WHERE k.rodzaj LIKE 'wiking' AND k.dataUR BETWEEN '1670-01-01' AND '1679-12-31';
+ 
+ SELECT k.nazwa FROM kreatura as k INNER JOIN ekwipunek as e ON k.idKreatury=e.idKreatury INNER JOIN zasob as z ON e.idZasobu=z.idZasobu WHERE z.rodzaj LIKE 'jedzenie' ORDER BY k.dataUR LIMIT 5;
+
+ SELECT k.nazwa,kk.nazwa FROM kreatura as k, kreatura as kk WHERE k.idKreatury=5+kk.idKreatury ORDER BY k.nazwa;
+ 
+ SELECT k.rodzaj, ROUND(AVG(z.waga*z.ilosc),2) as srednia_waga FROM kreatura as k INNER JOIN ekwipunek as
+e ON k.idKreatury=e.idKreatury INNER JOIN zasob as z ON e.idZasobu=z.idZasobu WHERE k.rodzaj NOT LIKE 'malpa' AND k.rodzaj NOT LIKE 'waz' GROUP BY k.rodzaj HAVING COUNT(z.idZasobu)<30;
+
+SELECT k.nazwa,k.rodzaj,k.dataUr FROM kreatura as k,(SELECT rodzaj,MIN(dataUr) as min,MAX(dataUr) as max FROM kreatura as kk GROUP BY rodzaj)as pod_z WHERE k.rodzaj=pod_z.rodzaj AND k.dataUr=pod_z.min OR k.dataUr=pod_z.max;
+
+CREATE TABLE etapy_wyprawy LIKE wikingowie.etapy_wyprawy;
+INSERT INTO etapy_wyprawy SELECT*FROM etapy_wyprawy;
+CREATE TABLE sektor LIKE wikingowie.sektor; 
+INSERT INTO sektor SELECT*FROM wikingowie.sektor
+CREATE TABLE wyprawa LIKE wikingowie.wyprawa;
+INSERT INTO wyprawa SELECT*FROM wikingowie.wyprawa;
